@@ -1,0 +1,308 @@
+package utilities;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.WebDriver;
+
+import driverManager.WebdriverManager;
+//import pageObjects.ArrayPage;
+import stepdefinitions.ArrayStep;
+
+public class ExcelReaderFine {
+	//ConfigFileReader configFileReader=new ConfigFileReader();
+	
+//	//static WebDriver driver=WebdriverManager.getDriver();
+	public static int totalRow=0;
+	
+//---------TryEditor--- List<Map>-----------------------	
+//	public List<Map<String, String>> getData(String excelFilePath, String sheetName) throws EncryptedDocumentException, IOException {
+//	
+//		Workbook workbook=WorkbookFactory.create(new File(excelFilePath));
+//		Sheet sheet=workbook.getSheet(sheetName);
+//		workbook.close();
+//		
+//		return readSheet(sheet);
+//			
+//	}
+//	
+//	
+//	private List<Map<String, String>> readSheet(Sheet sheet) {
+//		Row row;
+//		Cell cell;
+//		totalRow=sheet.getLastRowNum();
+//		List<Map<String, String>> excelRows=new ArrayList<Map<String,String>>();
+//		
+//		
+//		for(int currentRow=1;currentRow<=totalRow;currentRow++) {
+//			row=sheet.getRow(currentRow);
+//			
+//			int totalColumn=row.getLastCellNum();
+//			
+//		LinkedHashMap<String, String> columnMapData=new LinkedHashMap<String, String>();
+//		
+//		for(int currentColumn=0;currentColumn<totalColumn;totalColumn++) {
+//			cell=row.getCell(currentColumn);
+//			
+//			String columnHeaderName=sheet.getRow(sheet.getFirstRowNum()).getCell(currentColumn).getStringCellValue();
+//			
+//			columnMapData.put(columnHeaderName, cell.getStringCellValue());
+//		
+//			}
+//		
+//		excelRows.add(columnMapData);
+//		
+//		}
+//		
+//		return excelRows;
+//	}
+//	
+//	
+//	
+//	public int countRow() {
+//		return totalRow;
+//	}
+	
+	
+		
+
+
+//------------------TryEditor--- TestNG-------------------
+	
+public static String readInput ( String sheetName,int row) throws IOException{
+	File src=new File("C:\\Users\\sange\\eclipse-workspace\\DsAlgodemo\\src\\test\\resources\\testData\\dsAlgoPracQns.xlsx");
+//	File src=new File("C:\\Users\\sange\\eclipse-workspace\\DsAlgodemo\\src\\test\\resources\\testData\\Excel_Login_Pythoncode.xlsx");
+	FileInputStream fis=new FileInputStream(src);
+	XSSFWorkbook srcBook= new XSSFWorkbook(fis);
+	XSSFSheet sourceSheet = srcBook.getSheet(sheetName);
+	XSSFRow sourceRow = sourceSheet.getRow(row);
+	XSSFCell input=sourceRow.getCell(0);
+	String inputCode = input.getStringCellValue();
+	// System.out.println("inputCode==============outside loop"+inputCode);
+//	 if (inputCode != null) {
+//         // Check the cell type before calling getStringCellValue
+//         switch (input.getCellType()) {
+//             case STRING:
+//            	 inputCode=input.getStringCellValue();
+//                 break;
+//             case NUMERIC:
+//                 // If the cell is numeric, convert to a string
+//            	 inputCode= String.valueOf(input.getNumericCellValue());
+//                 break;
+//             case BOOLEAN:
+//                 // If the cell contains a boolean, convert it to a string
+//            	 inputCode= String.valueOf(input.getBooleanCellValue());
+//                 break;
+//             case BLANK:
+//            	 inputCode= "";
+//                 break;
+//             default:
+//            	 inputCode= "";  // Default value for unsupported cell types
+//         }
+//     } else {
+//         // If the cell is null, store an empty string
+//    	 inputCode= "";
+//    	 System.out.println("inputCode==============inside else"+inputCode);
+//     }
+//	 System.out.println("inputCode=============="+inputCode);
+	return inputCode;
+	
+}
+
+	public String  readOutput (int row) throws IOException{
+			File src=new File("C:\\Users\\sange\\eclipse-workspace\\DsAlgodemo\\src\\test\\resources\\testData\\dsAlgo_ExcelData.xlsx");
+//			File src=new File("C:\\Users\\sange\\eclipse-workspace\\DsAlgodemo\\src\\test\\resources\\testData\\Excel_Login_Pythoncode.xlsx");
+			FileInputStream fis=new FileInputStream(src);
+			XSSFWorkbook srcBook= new XSSFWorkbook(fis);
+			XSSFSheet sourceSheet = srcBook.getSheet("TryEditor");
+			XSSFRow sourceRow = sourceSheet.getRow(row);
+			XSSFCell output=sourceRow.getCell(1);
+			String outputCode = output.getStringCellValue();
+			return outputCode;
+		
+	}	
+}
+		
+//		XSSFCell username=sourceRow.getCell(0);
+//		XSSFCell password=sourceRow.getCell(1);
+//		String userExcel = username.getStringCellValue();
+//		String pwExcel = password.getStringCellValue();
+//		System.out.println("The username is" +userExcel);
+//		System.out.println("The password is" +pwExcel);
+//		log.info("The username on " +row + " is: "+userExcel);
+//		log.info("The password on "+row+ " is: "+pwExcel);
+//		driver.findElement(txtbox_username).sendKeys(userExcel);
+//		driver.findElement(txtbox_password).sendKeys(pwExcel);
+//		driver.findElement(btn_logon).click();
+
+
+//
+//package com.qa.util;
+//
+//import java.io.File;
+//import java.io.IOException;
+//import java.util.ArrayList;
+//import java.util.LinkedHashMap;
+//import java.util.List;
+//import java.util.Map;
+//
+//import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+//import org.apache.poi.ss.usermodel.Cell;
+//import org.apache.poi.ss.usermodel.CellType;
+//import org.apache.poi.ss.usermodel.Row;
+//import org.apache.poi.ss.usermodel.Sheet;
+//import org.apache.poi.ss.usermodel.Workbook;
+//import org.apache.poi.ss.usermodel.WorkbookFactory;
+//import org.apache.poi.ss.util.NumberToTextConverter;
+//
+//public class ExcelReader {
+//
+//	public List<Map<String, String>> getData(String excelFilePath, String sheetName)
+//			throws InvalidFormatException, IOException {
+//		Sheet sheet = getSheetByName(excelFilePath, sheetName);
+//		return readSheet(sheet);
+//	}
+//
+//	public List<Map<String, String>> getData(String excelFilePath, int sheetNumber)
+//			throws InvalidFormatException, IOException {
+//		Sheet sheet = getSheetByIndex(excelFilePath, sheetNumber);
+//		return readSheet(sheet);
+//	}
+//
+//	private Sheet getSheetByName(String excelFilePath, String sheetName) throws IOException, InvalidFormatException {
+//		Sheet sheet = getWorkBook(excelFilePath).getSheet(sheetName);
+//		return sheet;
+//	}
+//
+//	private Sheet getSheetByIndex(String excelFilePath, int sheetNumber) throws IOException, InvalidFormatException {
+//		Sheet sheet = getWorkBook(excelFilePath).getSheetAt(sheetNumber);
+//		return sheet;
+//	}
+//
+//	private Workbook getWorkBook(String excelFilePath) throws IOException, InvalidFormatException {
+//		return WorkbookFactory.create(new File(excelFilePath));
+//	}
+//
+//	private List<Map<String, String>> readSheet(Sheet sheet) {
+//		Row row;
+//		int totalRow = sheet.getPhysicalNumberOfRows();
+//		List<Map<String, String>> excelRows = new ArrayList<Map<String, String>>();
+//		int headerRowNumber = getHeaderRowNumber(sheet);
+//		if (headerRowNumber != -1) {
+//			int totalColumn = sheet.getRow(headerRowNumber).getLastCellNum();
+//			int setCurrentRow = 1;
+//			for (int currentRow = setCurrentRow; currentRow <= totalRow; currentRow++) {
+//				row = getRow(sheet, sheet.getFirstRowNum() + currentRow);
+//				LinkedHashMap<String, String> columnMapdata = new LinkedHashMap<String, String>();
+//				for (int currentColumn = 0; currentColumn < totalColumn; currentColumn++) {
+//					columnMapdata.putAll(getCellValue(sheet, row, currentColumn));
+//				}
+//				excelRows.add(columnMapdata);
+//			}
+//		}
+//		return excelRows;
+//	}
+//
+//	private int getHeaderRowNumber(Sheet sheet) {
+//		Row row;
+//		int totalRow = sheet.getLastRowNum();
+//		for (int currentRow = 0; currentRow <= totalRow + 1; currentRow++) {
+//			row = getRow(sheet, currentRow);
+//			if (row != null) {
+//				int totalColumn = row.getLastCellNum();
+//				for (int currentColumn = 0; currentColumn < totalColumn; currentColumn++) {
+//					Cell cell;
+//					cell = row.getCell(currentColumn, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+//					if (cell.getCellType() == CellType.STRING) {
+//						return row.getRowNum();
+//
+//					} else if (cell.getCellType() == CellType.NUMERIC) {
+//						return row.getRowNum();
+//
+//					} else if (cell.getCellType() == CellType.BOOLEAN) {
+//						return row.getRowNum();
+//					} else if (cell.getCellType() == CellType.ERROR) {
+//						return row.getRowNum();
+//					}
+//				}
+//			}
+//		}
+//		return (-1);
+//	}
+//
+//	private Row getRow(Sheet sheet, int rowNumber) {
+//		return sheet.getRow(rowNumber);
+//	}
+//
+//	private LinkedHashMap<String, String> getCellValue(Sheet sheet, Row row, int currentColumn) {
+//		LinkedHashMap<String, String> columnMapdata = new LinkedHashMap<String, String>();
+//		Cell cell;
+//		if (row == null) {
+//			if (sheet.getRow(sheet.getFirstRowNum()).getCell(currentColumn, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+//					.getCellType() != CellType.BLANK) {
+//				String columnHeaderName = sheet.getRow(sheet.getFirstRowNum()).getCell(currentColumn)
+//						.getStringCellValue();
+//				columnMapdata.put(columnHeaderName, "");
+//			}
+//		} else {
+//			cell = row.getCell(currentColumn, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+//			if (cell.getCellType() == CellType.STRING) {
+//				if (sheet.getRow(sheet.getFirstRowNum())
+//						.getCell(cell.getColumnIndex(), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+//						.getCellType() != CellType.BLANK) {
+//					String columnHeaderName = sheet.getRow(sheet.getFirstRowNum()).getCell(cell.getColumnIndex())
+//							.getStringCellValue();
+//					columnMapdata.put(columnHeaderName, cell.getStringCellValue());
+//				}
+//			} else if (cell.getCellType() == CellType.NUMERIC) {
+//				if (sheet.getRow(sheet.getFirstRowNum())
+//						.getCell(cell.getColumnIndex(), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+//						.getCellType() != CellType.BLANK) {
+//					String columnHeaderName = sheet.getRow(sheet.getFirstRowNum()).getCell(cell.getColumnIndex())
+//							.getStringCellValue();
+//					columnMapdata.put(columnHeaderName, NumberToTextConverter.toText(cell.getNumericCellValue()));
+//				}
+//			} else if (cell.getCellType() == CellType.BLANK) {
+//				if (sheet.getRow(sheet.getFirstRowNum())
+//						.getCell(cell.getColumnIndex(), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+//						.getCellType() != CellType.BLANK) {
+//					String columnHeaderName = sheet.getRow(sheet.getFirstRowNum()).getCell(cell.getColumnIndex())
+//							.getStringCellValue();
+//					columnMapdata.put(columnHeaderName, "");
+//				}
+//			} else if (cell.getCellType() == CellType.BOOLEAN) {
+//				if (sheet.getRow(sheet.getFirstRowNum())
+//						.getCell(cell.getColumnIndex(), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+//						.getCellType() != CellType.BLANK) {
+//					String columnHeaderName = sheet.getRow(sheet.getFirstRowNum()).getCell(cell.getColumnIndex())
+//							.getStringCellValue();
+//					columnMapdata.put(columnHeaderName, Boolean.toString(cell.getBooleanCellValue()));
+//				}
+//			} else if (cell.getCellType() == CellType.ERROR) {
+//				if (sheet.getRow(sheet.getFirstRowNum())
+//						.getCell(cell.getColumnIndex(), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+//						.getCellType() != CellType.BLANK) {
+//					String columnHeaderName = sheet.getRow(sheet.getFirstRowNum()).getCell(cell.getColumnIndex())
+//							.getStringCellValue();
+//					columnMapdata.put(columnHeaderName, Byte.toString(cell.getErrorCellValue()));
+//				}
+//			}
+//		}
+//		return columnMapdata;
+//	}
+//}
